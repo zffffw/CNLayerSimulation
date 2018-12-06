@@ -35,6 +35,8 @@ EmailSocket::EmailSocket(SocketType type){
         }
     }
 }
+
+
 EmailSocket::~EmailSocket() {
     if(typeOfSocket == Server) {
         close(client_sock);
@@ -43,6 +45,30 @@ EmailSocket::~EmailSocket() {
         close(client_sock);
     }
 
+}
+
+string EmailSocket::messageToHex(string message) {
+    int msgLength = message.length();
+    string res;
+    for (int i = 0; i < msgLength; ++i) {
+        int dec = (int)(message[i]);
+        res += DecIntToHexStr(dec);
+    }
+    return res;
+}
+
+
+string EmailSocket::DecIntToHexStr(int num) {
+	string str;
+	int Temp = num / 16;
+	int left = num % 16;
+	if (Temp > 0)
+		str += DecIntToHexStr(Temp);
+	if (left < 10)
+		str += (left + '0');
+	else
+		str += ('A' + left - 10);
+	return str;
 }
 
 void EmailSocket::connectEmailServer() {
@@ -120,7 +146,9 @@ string EmailSocket::run(string message) {
     string result = "";
     if(typeOfSocket == Client) {
         connectEmailServer();
-        sendMessageTo(message);
+        string msg;
+        msg = messageToHex(message);
+        sendMessageTo(msg);
     } else if(typeOfSocket == Server) {
         bindSocket();
         listenSocket(1);
@@ -132,10 +160,3 @@ string EmailSocket::run(string message) {
 }
 
 
-
-// int main() {
-//     EmailSocket client(Client, 12345, "127.0.0.1");
-//     client.connectEmailServer();
-//     string test = "2423423\n";
-//     client.sendMessageTo(test);
-// }

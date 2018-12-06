@@ -34,6 +34,9 @@ class EmailSocket {
         EmailSocket(SocketType type);
         ~EmailSocket();
     private:
+        // string messageToHex(string message);
+        string messageToHex(string message);
+        string DecIntToHexStr(int num);
         void connectEmailServer();
         void bindSocket();
         void listenSocket(int listenLog);
