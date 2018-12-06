@@ -56,6 +56,49 @@ struct Data {
     string tail;
 };
 
+
+string binToHex(string bin) {
+    string ans;
+    int length = bin.length()/4;
+    for(int i = 0; i < length; ++i) {
+        string sub = bin.substr(i*4, 4);
+        if (sub == "0000") {
+            ans += "0";
+        } else if (sub == "0001") {
+            ans += "1";
+        } else if (sub == "0010") {
+            ans += "2";
+        } else if (sub == "0011") {
+            ans += "3";
+        } else if (sub == "0100") {
+            ans += "4";
+        } else if (sub == "0101") {
+            ans += "5";
+        } else if (sub == "0110") {
+            ans += "6";
+        } else if (sub == "0111") {
+            ans += "7";
+        } else if (sub == "1000") {
+            ans += "8";
+        } else if (sub == "1001") {
+            ans += "9";
+        } else if (sub == "1010") {
+            ans += "A";
+        } else if (sub == "1011") {
+            ans += "B";
+        } else if (sub == "1100") {
+            ans += "C";
+        } else if (sub == "1101") {
+            ans += "D";
+        } else if (sub == "1110") {
+            ans += "E";
+        } else if (sub == "1111") {
+            ans += "F";
+        }
+    }
+    return ans;
+}
+
 string hexToBin(string hex) {
     vector<string> ans;
     string strBin;
