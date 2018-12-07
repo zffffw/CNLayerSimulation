@@ -1,6 +1,6 @@
 
-#ifndef email_h
-#define email_h
+#ifndef email_hpp
+#define email_hpp
 #include "cnformat.h"
 #include <stdio.h>
 #include <string.h>
