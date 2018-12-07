@@ -47,29 +47,24 @@ EmailSocket::~EmailSocket() {
 
 }
 
-string EmailSocket::messageToHex(string message) {
-    int msgLength = message.length();
+
+string strToHex(string str) {
+    int strLength = str.length();
     string res;
-    for (int i = 0; i < msgLength; ++i) {
-        int dec = (int)(message[i]);
-        res += DecIntToHexStr(dec);
+    int i;
+    for (i = 0; i < strLength; ++i) {
+        int dec = (int)(str[i]);
+        int remain = dec % 16;
+        int factor = dec/16;
+        remain = remain < 10? remain + '0': remain + 55;
+        factor = factor < 10? factor + '0': factor + 55;
+        cout << (char) dec << ' ' <<  (char)remain << ' ' << (char)factor << endl;
+        res.append(1, factor);
+        res.append(1, remain);
     }
     return res;
 }
 
-
-string EmailSocket::DecIntToHexStr(int num) {
-	string str;
-	int Temp = num / 16;
-	int left = num % 16;
-	if (Temp > 0)
-		str += DecIntToHexStr(Temp);
-	if (left < 10)
-		str += (left + '0');
-	else
-		str += ('A' + left - 10);
-	return str;
-}
 
 void EmailSocket::connectEmailServer() {
     if (connect(client_sock, (struct sockaddr *)&server_addr, sizeof(server_addr)) == -1) {
@@ -147,7 +142,7 @@ string EmailSocket::run(string message) {
     if(typeOfSocket == Client) {
         connectEmailServer();
         string msg;
-        msg = messageToHex(message);
+        msg = strToHex(message);
         sendMessageTo(msg);
     } else if(typeOfSocket == Server) {
         bindSocket();
@@ -159,4 +154,8 @@ string EmailSocket::run(string message) {
     return result;
 }
 
+int main() {
+    cout << strToHex("afiaof12312*&(*") << endl;;
+
+}
 
