@@ -1,6 +1,6 @@
 #include <iostream>
 #include "email.hpp"
-
+#include "tool.cpp"
 using namespace std;
 EmailSocket::EmailSocket(SocketType type){
     int i;
@@ -21,9 +21,6 @@ EmailSocket::EmailSocket(SocketType type){
             perror("create socket failed");
             exit(0);
         }
-        // if(showItem) {
-        //     cout << "create socket ok!" << endl;
-        // }
     } else if (typeOfSocket == Server) {
         server_addr.sin_family = AF_INET;
         server_addr.sin_port = htons(basisInformation.srcPort);
@@ -47,23 +44,6 @@ EmailSocket::~EmailSocket() {
 
 }
 
-
-string strToHex(string str) {
-    int strLength = str.length();
-    string res;
-    int i;
-    for (i = 0; i < strLength; ++i) {
-        int dec = (int)(str[i]);
-        int remain = dec % 16;
-        int factor = dec/16;
-        remain = remain < 10? remain + '0': remain + 55;
-        factor = factor < 10? factor + '0': factor + 55;
-        cout << (char) dec << ' ' <<  (char)remain << ' ' << (char)factor << endl;
-        res.append(1, factor);
-        res.append(1, remain);
-    }
-    return res;
-}
 
 
 void EmailSocket::connectEmailServer() {
@@ -142,7 +122,7 @@ string EmailSocket::run(string message) {
     if(typeOfSocket == Client) {
         connectEmailServer();
         string msg;
-        msg = strToHex(message);
+        msg = tools.strToHex(message);
         sendMessageTo(msg);
     } else if(typeOfSocket == Server) {
         bindSocket();
@@ -154,8 +134,12 @@ string EmailSocket::run(string message) {
     return result;
 }
 
-int main() {
-    cout << strToHex("afiaof12312*&(*") << endl;;
-
-}
+// int main() {
+//     string test;
+//     for (int i = 0; i < 10000000; ++i) {
+//         test += "adf";
+//     }
+//     tools.strToHex(test);
+//     // cout << tools.hexToStr("616669616F6631323331322A26282A") << endl;
+// }
 
