@@ -134,12 +134,14 @@ string EmailSocket::run(string message) {
     return result;
 }
 
-// int main() {
-//     string test;
-//     for (int i = 0; i < 10000000; ++i) {
-//         test += "adf";
-//     }
-//     tools.strToHex(test);
-//     // cout << tools.hexToStr("616669616F6631323331322A26282A") << endl;
-// }
+int main() {
+    string test = "fjaiwhefia8347r8989yf8qy487ry78h*&Y&*Y*(&#Y58Y&*Y78Y98Y4T38GHIH  UIHUI       IU UI   Y UI    Y IU    YO87 Y78O   87 H    8)";
+    // for (int i = 0; i < 10000000; ++i) {
+    //     test += "adf";
+    // }
+    cout << test.length() << endl;
+    cout <<tools.strToHex(test)<<endl;
+    cout << tools.strToHex(test).length() << endl;
+    cout << tools.hexToStr(tools.strToHex(test)) << endl;
+}
 

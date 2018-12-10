@@ -1,4 +1,5 @@
 #include "tool.hpp"
+
 string Tools:: hexToBin(string hex) {
     vector<string> ans;
     string strBin;
@@ -72,7 +73,7 @@ string Tools:: hexToBin(string hex) {
 }
 
 string Tools:: hexToStr(string hex) {
-    int hexLength = hex.length();
+    int hexLength = static_cast<int>( hex.length() );
     string str;
     int i;
     for( i = 0; i < hexLength; i += 2) {
@@ -85,7 +86,7 @@ string Tools:: hexToStr(string hex) {
 }
 
 string Tools:: strToHex(string str) {
-    int strLength = str.length();
+    int strLength = static_cast<int>( str.length() );
     string res;
     int i;
     for (i = 0; i < strLength; ++i) {
@@ -103,7 +104,7 @@ string Tools:: strToHex(string str) {
 
 string Tools:: binToHex(string bin) {
     string ans;
-    int length = bin.length()/4;
+    int length = static_cast<int>( bin.length()/4 );
     for(int i = 0; i < length; ++i) {
         string sub = bin.substr(i*4, 4);
         if (sub == "0000") {
@@ -141,4 +142,43 @@ string Tools:: binToHex(string bin) {
         }
     }
     return ans;
+}
+
+string Tools:: transfer(int x,int length) {
+    string result(length, '0');
+    int index = length-1;
+    int r;
+    while(x)
+    {
+        r=x%2;
+        if(r == 0){
+            result[index] = '0';
+        }else{
+            result[index] = '1';
+        }
+        index -= 1;
+        x/=2;
+    }
+    return result;
+}
+
+string Tools:: bmoc_calculation(string A,string B) {
+    string result(16, '0');
+    int cx = 0;
+    int a,b,sum;
+    int index = 15;
+    while(index > -1){
+        a = A[index] - '0';
+        b = B[index] - '0';
+        sum = a+b+cx;
+        cx = sum/2;
+        sum = sum%2;
+        if(sum){
+            result[index] = '1';
+        }else{
+            result[index] = '0';
+        }
+        index -= 1;
+    }
+    return result;
 }
